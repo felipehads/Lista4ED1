@@ -7,9 +7,9 @@
 
 typedef struct _stack_ Stack;
 
-Stack * stkCreate(int maxItens);
+Stack *stkCreate(int max);
 int stkPush(Stack *s, void * item);
-void * stkPop(Stack *s);
-void * stkDestroy(Stack *s);
+void *stkPop(Stack *s);
+void *stkDestroy(Stack *s);
 
 #endif

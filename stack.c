@@ -1,21 +1,20 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "stack.h"
+#include <stdio.h>
 
-typedef struct _stack {
+typedef struct _stack_ {
     int maxItens;
     int top;
     void **itens;
-} Stack;
+}Stack;
 
-Stack *stkCreate(int maxItens){
-    Stack *s;
-    if(maxItens > 0){
+Stack *stkCreate(int max){
+    Stack * s;
+    if(max > 0){
         s = (Stack *)malloc(sizeof(Stack));
         if(s != NULL){
-            s->itens = (void **)malloc(sizeof(void *)*maxItens);
+            s->itens = (void **)malloc(sizeof(void *)*max);
             if(s->itens != NULL){
-                s->maxItens = maxItens;
+                s->maxItens = max;
                 s->top = -1;
                 return s;
             }
@@ -42,7 +41,7 @@ void * stkPop(Stack *s){
     void * aux;
     if(s != NULL){
         if(s->itens != NULL){
-            if((s->top >= 0){
+            if(s->top >= 0){
                 aux = s->itens[s->top];
                 s->top--;
                 return aux;
