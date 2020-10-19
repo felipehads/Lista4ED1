@@ -26,47 +26,47 @@ int main(){
         //CHECANDO A ALOCAÇÃO DA VARIÁVEL stk
         if (stk != NULL){
             while (i < strSize){
-                int checkPush = 0;
-                //ALOCANDO UMA VARIÁVEL AUXILIAR PARA COLETAR OS VALORES DA STRING
-                aux = (char *)malloc(sizeof(char));
-                //COLETANDO OS VALORES DA STRING PASSADA E JOGANDO PARA DENTRO DA PILHA
-                if(aux != NULL){
-                    *aux = str[i];
-                    checkPush = stkPush(stk, aux);
-                }
-                //CHECANDO SE O PUSH FOI REALIZADO CORRETAMENTE
-                if (checkPush == 0){
-                    printf("Algum push nao foi efetuado!");
-                    return FALSE;
-                }
-                //SE O VALOR ENCONTRADO FOI O C
-                if(*aux == 'C'){
-                    i++;
-                    //TIRAR O C DE DENTRO DO PILHA, POIS ELE NÃO SERÁ COMPARADO
-                    stkPop(stk);
-                    //COMPARAR OS VALORES QUE ESTÃO DENTRO DA PILHA (VALORES ANTES DO C), COM OS VALORES QUE AINDA RESTAM NA STRING (VALORES APÓS O C)
-                    while(i < strSize){
-                        if(str[i] == 'A' || str[i] == 'B'){
+                if(str[i] == 'A' || str[i] == 'B' || str[i] == 'C'){
+                    int checkPush = 0;
+                    //ALOCANDO UMA VARIÁVEL AUXILIAR PARA COLETAR OS VALORES DA STRING
+                    aux = (char *)malloc(sizeof(char));
+                    //COLETANDO OS VALORES DA STRING PASSADA E JOGANDO PARA DENTRO DA PILHA
+                    if(aux != NULL){
+                        *aux = str[i];
+                        checkPush = stkPush(stk, aux);
+                    }
+                    //CHECANDO SE O PUSH FOI REALIZADO CORRETAMENTE
+                    if (checkPush == 0){
+                        printf("Algum push nao foi efetuado!");
+                        exit(0);
+                    }
+                    //SE O VALOR ENCONTRADO FOI O C
+                    if(*aux == 'C'){
+                        i++;
+                        //TIRAR O C DE DENTRO DO PILHA, POIS ELE NÃO SERÁ COMPARADO
+                        stkPop(stk);
+                        //COMPARAR OS VALORES QUE ESTÃO DENTRO DA PILHA (VALORES ANTES DO C), COM OS VALORES QUE AINDA RESTAM NA STRING (VALORES APÓS O C)
+                        while(i < strSize){
                             aux = (char *)stkPop(stk);
                             if(*aux != str[i]){
-                                printf("A string nao tem formato xCy --");
+                                printf("A string nao tem formato xCy");
                                 return FALSE;
                             } else {
                                 i++;
                             }
-                        } else {
-                            printf("Digite apenas 'A', 'B' ou 'C'!");
-                            break;
                         }
+                        printf("A string tem formato xCy!");
+                        return TRUE;
                     }
-                    printf("A string tem formato xCy!");
-                    return TRUE;
+                    i++;
+                } else {
+                    printf("Digite apenas 'A', 'B' ou 'C'!");
+                    exit(0);
                 }
-                i++;
             }
         }
         printf("Stk nao alocado!");
-        return FALSE;
+        exit(0);
     } else{
         printf("A string nao tem formato xCy");
         return FALSE;
